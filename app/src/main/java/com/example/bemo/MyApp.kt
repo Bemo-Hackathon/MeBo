@@ -1,8 +1,8 @@
-package com.example.bemo.application
+package com.example.bemo
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class BeMo : Application() {
+class MyApp : Application() {
 }
