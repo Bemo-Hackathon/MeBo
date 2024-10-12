@@ -1,8 +1,17 @@
 package com.example.bemo.data.remote
 
-import retrofit2.http.GET
+import com.example.bemo.data.models.ChatGPTRequest
+import com.example.bemo.data.models.ChatGPTResponse
+import retrofit2.http.Body
+import retrofit2.http.Headers
+import retrofit2.http.POST
+
 
 interface MyApi {
-    @GET
-    suspend fun sendMessage(message: String)
+
+    @Headers("Content-Type: application/json")
+    @POST("v1/chat/completions")
+    suspend fun sendMessage(
+        @Body request: ChatGPTRequest
+    ): ChatGPTResponse
 }

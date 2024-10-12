@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -27,24 +28,23 @@ fun ChatBotScreen(
     modifier: Modifier = Modifier,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
-
-//    val chatMessages = viewModel.chatMessages.collectAsState().value
+    // Track user input
     var userInput by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // LazyColumn para exibir mensagens do chat
+        // Display chat messages
         LazyColumn(
             modifier = Modifier
                 .weight(1F)
                 .padding(16.dp),
-            reverseLayout = true // Para mostrar as mensagens mais recentes no topo
+            reverseLayout = true
         ) {
-//            items(chatMessages) { message ->
-//                MessageItem(message)
-//            }
+            items(viewModel.chatMessages) { message ->
+                Text(text = message)
+            }
         }
 
-        // Área de entrada de texto
+        // Input field and send button
         Row(
             modifier = Modifier
                 .padding(8.dp)
@@ -55,15 +55,15 @@ fun ChatBotScreen(
                 value = userInput,
                 onValueChange = { userInput = it },
                 modifier = Modifier.weight(1F),
-                placeholder = { Text("Digite sua pergunta...") }
+                placeholder = { Text("Digite sua mensagem...") }
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Button(onClick = {
                 if (userInput.isNotBlank()) {
-//                    viewModel.sendMessage(userInput) // Enviar a mensagem para o ViewModel
-                    userInput = "" // Limpar o campo de texto após enviar
+                    viewModel.sendMessage(userInput)  // Send the message via ViewModel
+                    userInput = "" // Clear input field
                 }
             }) {
                 Text("Enviar")
@@ -71,7 +71,6 @@ fun ChatBotScreen(
         }
     }
 }
-
 
 @Composable
 fun ChatBotList(modifier: Modifier = Modifier) {
