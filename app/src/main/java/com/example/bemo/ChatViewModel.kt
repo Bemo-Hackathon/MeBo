@@ -27,7 +27,7 @@ class ChatViewModel @Inject constructor(
             val request = ChatGPTRequest(
                 model = "gpt-3.5-turbo",
                 messages = listOf(
-                    Message(role = "system", content = "You are a helping assistant"),
+                    Message(role = "system", content = "Voce e um assistente de um app financeiro"),
                     Message(role = "user", content = userInput)
                 ),
                 maxCompletionTokens = 50
