@@ -1,8 +1,11 @@
 package com.example.bemo
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bemo.data.models.ChatGPTRequest
+import com.example.bemo.data.models.Message
 import com.example.bemo.domain.repository.MyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,22 +17,30 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    // List to hold chat messages (both from the user and the assistant)
     var chatMessages = mutableStateListOf<String>()
         private set
 
-    fun sendMessage(userMessage: String) {
-        // Add the user's message to the list
-        chatMessages.add("User: $userMessage")
+    fun sendMessage(userInput: String) {
+        chatMessages.add("User: $userInput")
 
-        // Send the message to the API in a coroutine
         viewModelScope.launch {
+            val request = ChatGPTRequest(
+                model = "gpt-3.5-turbo",
+                messages = listOf(
+                    Message(role = "system", content = "You are a helping assistant"),
+                    Message(role = "user", content = userInput)
+                ),
+                maxCompletionTokens = 50
+            )
+
             try {
-                val response = myRepository.sendMessage(userMessage)
+                val response = myRepository.sendMessage(request)
                 // Add the assistant's response to the chat
                 chatMessages.add("Assistant: ${response.choices.firstOrNull()?.message?.content ?: "No response"}")
             } catch (e: Exception) {
                 chatMessages.add("Error: ${e.localizedMessage}")
+                Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
+
             }
         }
     }

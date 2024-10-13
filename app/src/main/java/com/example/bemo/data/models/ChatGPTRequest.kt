@@ -1,22 +1,35 @@
 package com.example.bemo.data.models
 
-data class ChatGPTRequest(
-    val model: String,
-    val messages: List<Message>,
-    val max_tokens: Int
-) {
-    data class Message(
-        val role: String, // "system", "user", or "assistant"
-        val content: String
-    )
-}
+import com.google.gson.annotations.SerializedName
 
+data class ChatGPTRequest(
+    @SerializedName("model")
+    val model: String,
+    @SerializedName("messages")
+    val messages: List<Message>,
+    @SerializedName("max_completion_tokens")
+    val maxCompletionTokens: Int?
+)
+
+data class Message(
+    @SerializedName("role")
+    val role: String, // "system", "user", or "assistant"
+    @SerializedName("content")
+    val content: String
+)
 
 data class ChatGPTResponse(
+    @SerializedName("id")
     val id: String,
+    @SerializedName("choices")
     val choices: List<Choice>
-)
-
-data class Choice(
-    val message: ChatGPTRequest.Message
-)
+) {
+    data class Choice(
+        @SerializedName("index")
+        val index: Int,
+        @SerializedName("message")
+        val message: Message,
+        @SerializedName("finish_reason")
+        val finishReason: String
+    )
+}

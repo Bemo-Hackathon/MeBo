@@ -11,18 +11,7 @@ class MyRepositoryImpl @Inject constructor(
     private val myApi: MyApi,
 ) : MyRepository {
 
-    override suspend fun sendMessage(message: String): ChatGPTResponse {
-        // Creating the request body
-        val chatRequest = ChatGPTRequest(
-            model = "gpt-3.5-turbo",
-            messages = listOf(
-                // You can define different roles ("user", "assistant")
-                ChatGPTRequest.Message(role = "user", content = message)
-            ),
-            max_tokens = 10000 // Adjust as needed
-        )
-
-        // Sending the request and returning the response
-        return myApi.sendMessage(chatRequest)
+    override suspend fun sendMessage(request: ChatGPTRequest): ChatGPTResponse {
+        return myApi.sendMessage(request)
     }
 }

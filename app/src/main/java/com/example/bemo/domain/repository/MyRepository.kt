@@ -1,8 +1,9 @@
 package com.example.bemo.domain.repository
 
+import com.example.bemo.data.models.ChatGPTRequest
 import com.example.bemo.data.models.ChatGPTResponse
 
-interface MyRepository{
+interface MyRepository {
 
-    suspend fun sendMessage(message: String): ChatGPTResponse
+    suspend fun sendMessage(request: ChatGPTRequest): ChatGPTResponse
 }
