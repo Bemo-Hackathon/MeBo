@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -67,11 +66,6 @@ fun ChatBotScreen(modifier: Modifier = Modifier) {
                     titleContentColor = Color.White
                 )
             )
-        },
-        bottomBar = {
-            BottomAppBar {
-                Text("Item da BottomAppBar")
-            }
         }
     ) { innerPadding ->
         ChatBotScreenContent(
@@ -129,8 +123,8 @@ fun ChatBotScreenContent(
                     .align(alignment = Alignment.CenterVertically)
                     .clickable {
                         if (userInput.isNotBlank()) {
-                            viewModel.sendMessage(userInput) // Enviar a mensagem para o ViewModel
-                            userInput = "" // Limpar o campo de texto após enviar
+                            viewModel.sendMessage(userInput)
+                            userInput = ""
                         }
                     }
             )
@@ -148,7 +142,7 @@ fun MessageItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 6.dp),
         horizontalArrangement = if (isUserMessage) Arrangement.End else Arrangement.Start
     ) {
         Text(

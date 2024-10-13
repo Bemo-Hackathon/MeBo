@@ -36,7 +36,7 @@ class ChatViewModel @Inject constructor(
             try {
                 val response = myRepository.sendMessage(request)
                 // Add the assistant's response to the chat
-                chatMessages.add("Assistant: ${response.choices.firstOrNull()?.message?.content ?: "No response"}")
+                chatMessages.add("Be'Mo: ${response.choices.firstOrNull()?.message?.content ?: "No response"}")
             } catch (e: Exception) {
                 chatMessages.add("Error: ${e.localizedMessage}")
                 Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
