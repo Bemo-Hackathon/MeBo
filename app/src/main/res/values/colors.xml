@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_chat">#9600BF</color>
+    <color name="purple_chat_transparent">#559600BF</color>
     <color name="gray_chat">#E7E7E7</color>
 </resources>
