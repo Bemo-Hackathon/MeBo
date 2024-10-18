@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,9 +28,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.bemo.R
 import com.example.bemo.ui.states.SignInUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,18 +81,18 @@ fun SignInScreen(
                 trailingIcon = {
                     val trailingIconModifier = Modifier.clickable {
                         uiState.onTogglePasswordVisibility()
-                    }
+                    }.size(24.dp)
                     when (uiState.isShowPassword) {
                         true -> {
                             Icon(
-                                Icons.Filled.Call,
+                                painter = painterResource(R.drawable.eye_regular),
                                 contentDescription = "ícone de visível",
                                 trailingIconModifier
                             )
                         }
 
                         else -> Icon(
-                            Icons.Filled.Home,
+                            painter = painterResource(R.drawable.eye_slash_solid),
                             contentDescription = "ícone de não visível",
                             trailingIconModifier
                         )
