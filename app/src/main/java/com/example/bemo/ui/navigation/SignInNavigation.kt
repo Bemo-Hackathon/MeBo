@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 const val signInRoute = "signIn"
 
 fun NavGraphBuilder.signInScreen(
-    onNavigateToSignUp: () -> Unit
+    onNavigateToSignUp: () -> Unit,
+    onNavigateToChat: () -> Unit
 ) {
     composable(signInRoute) {
         val viewModel: SignInViewModel = hiltViewModel()
@@ -33,6 +34,7 @@ fun NavGraphBuilder.signInScreen(
             onSignInClick = {
                 scope.launch {
                     viewModel.signIn()
+                    onNavigateToChat()
                 }
             },
             onSignUpClick = onNavigateToSignUp

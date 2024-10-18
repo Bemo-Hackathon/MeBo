@@ -41,7 +41,10 @@ import com.example.bemo.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatBotScreen(modifier: Modifier = Modifier) {
+fun ChatBotScreen(
+    modifier: Modifier = Modifier,
+    onBackToLogin: () -> Unit
+)  {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,7 +55,7 @@ fun ChatBotScreen(modifier: Modifier = Modifier) {
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = {onBackToLogin()}) {
                         Icon(
                             modifier = Modifier.size(18.dp),
                             painter = painterResource(id = R.drawable.arrow_left),
@@ -84,7 +87,9 @@ fun ChatBotScreenContent(
     val chatMessages = viewModel.chatMessages
     var userInput by remember { mutableStateOf("") }
 
-    Column(modifier = modifier.fillMaxSize().padding(top = 12.dp)) {
+    Column(modifier = modifier
+        .fillMaxSize()
+        .padding(top = 12.dp)) {
         LazyColumn(
             modifier = Modifier
                 .weight(3F)
