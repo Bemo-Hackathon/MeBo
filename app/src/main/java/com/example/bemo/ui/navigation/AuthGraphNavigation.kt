@@ -15,11 +15,14 @@ fun NavGraphBuilder.authGraph(
 ) {
     navigation(
         route = authGraphRoute,
-        startDestination = signUpRoute
+        startDestination = signInRoute
     ) {
+        signInScreen(
+            onNavigateToSignUp = onNavigateToSignUp,
+        )
         signUpScreen(onNavigationToSignIn = {
             onNavigateToSignIn(navOptions {
-                popUpTo(signUpRoute)
+                popUpTo(authGraphRoute)
             })
         })
     }

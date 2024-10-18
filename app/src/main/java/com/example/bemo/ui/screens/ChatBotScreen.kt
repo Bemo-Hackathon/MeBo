@@ -1,4 +1,4 @@
-package com.example.bemo.ui.components
+package com.example.bemo.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
