@@ -1,4 +1,4 @@
-package com.example.bemo
+package com.example.bemo.viewmodels
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
@@ -27,7 +27,7 @@ class ChatViewModel @Inject constructor(
             val request = ChatGPTRequest(
                 model = "gpt-3.5-turbo",
                 messages = listOf(
-                    Message(role = "system", content = "Voce e um assistente de um app financeiro"),
+                    Message(role = "system", content = "Voce e um assistente de um app financeiro, por favor so responda perguntas sobre financeiro por favor"),
                     Message(role = "user", content = userInput)
                 ),
                 maxCompletionTokens = 50

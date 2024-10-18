@@ -2,6 +2,9 @@ package com.example.bemo.di
 
 import com.example.bemo.BuildConfig
 import com.example.bemo.data.remote.MyApi
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,5 +45,11 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MyApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebase(): FirebaseAuth{
+        return Firebase.auth
     }
 }

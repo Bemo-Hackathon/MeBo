@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "162787156678",
+    "project_id": "bemo-a1141",
+    "storage_bucket": "bemo-a1141.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162787156678:android:6fc875efcca19a95bc6dc7",
+        "android_client_info": {
+          "package_name": "com.example.bemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUcfKslIUhU4wiJ2wETRp40I9rfgugass"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
