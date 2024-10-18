@@ -1,6 +1,5 @@
 package com.example.bemo.data.remote
 
-import com.example.bemo.BuildConfig
 import com.example.bemo.data.models.ChatGPTRequest
 import com.example.bemo.data.models.ChatGPTResponse
 import retrofit2.http.Body

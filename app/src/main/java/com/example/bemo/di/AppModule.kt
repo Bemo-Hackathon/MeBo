@@ -1,6 +1,7 @@
 package com.example.bemo.di
 
 import com.example.bemo.BuildConfig
+import com.example.bemo.data.remote.CustomerApi
 import com.example.bemo.data.remote.MyApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -19,6 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
     private const val BASE_URL = "https://api.openai.com/" // URL base da API
+    private const val COSTUMER_BASE_URL = "https://deploy-api-hacka.onrender.com/" // URL base da API
 
     @Provides
     @Singleton
@@ -45,6 +47,16 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MyApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCostumerApi() : CustomerApi {
+        return Retrofit.Builder()
+            .baseUrl(COSTUMER_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CustomerApi::class.java)
     }
 
     @Provides

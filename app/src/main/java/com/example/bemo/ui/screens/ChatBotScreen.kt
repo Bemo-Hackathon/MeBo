@@ -128,7 +128,7 @@ fun ChatBotScreenContent(
                     .align(alignment = Alignment.CenterVertically)
                     .clickable {
                         if (userInput.isNotBlank()) {
-                            viewModel.sendMessage(userInput)
+                            viewModel.sendCustomerMessage(userInput)
                             userInput = ""
                         }
                     }
