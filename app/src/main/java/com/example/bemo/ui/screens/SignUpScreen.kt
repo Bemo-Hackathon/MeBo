@@ -13,6 +13,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,7 +27,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bemo.ui.states.SignUpUiState
-import com.example.bemo.viewmodels.SignUpViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,12 +34,20 @@ import com.example.bemo.viewmodels.SignUpViewModel
 fun SignUpScreen(
     modifier: Modifier = Modifier,
     signUpUiState: SignUpUiState,
-    onSignUpClick: () -> Unit
+    onSignUpClick: () -> Unit,
+    onNavigateToSignIn: () -> Unit
 ) {
     Scaffold(topBar = {
         TopAppBar(
             title = { Text(text = "Cadastro") },
-            navigationIcon = { Icons.AutoMirrored.Filled.ArrowBack })
+            navigationIcon = {
+                IconButton(onClick = { onNavigateToSignIn() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
+                    )
+                }
+            })
     }) { innerPadding ->
         Column(
             modifier = modifier
@@ -51,7 +60,9 @@ fun SignUpScreen(
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
                         text = "ERROR",
-                        modifier = Modifier.fillMaxWidth().wrapContentSize(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentSize(),
                         color = Color.Red
                     )
                 }
@@ -98,14 +109,18 @@ fun SignUpScreen(
 private fun SignUpScreenPreview() {
     SignUpScreen(
         signUpUiState = SignUpUiState(
-        email = "gabriel",
-        password = "teste",
-        confirmPassword = "teste"
-    ), onSignUpClick = {})
+            email = "gabriel",
+            password = "teste",
+            confirmPassword = "teste"
+        ), onSignUpClick = {},
+        onNavigateToSignIn = {})
 }
 
 @Preview
 @Composable
 private fun SignUpScreenErrorPreview() {
-    SignUpScreen(signUpUiState = SignUpUiState(error = "Erro"), onSignUpClick = {})
+    SignUpScreen(
+        signUpUiState = SignUpUiState(error = "Erro"),
+        onSignUpClick = {},
+        onNavigateToSignIn = {})
 }
