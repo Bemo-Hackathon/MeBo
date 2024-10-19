@@ -3,6 +3,7 @@ package com.example.bemo.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +15,10 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,6 +47,7 @@ import com.example.bemo.ui.states.ChatUiState
 fun ChatBotScreen(
     modifier: Modifier = Modifier,
     onBackToLogin: () -> Unit,
+    onNavigateToPayment: () -> Unit,
     onButtonClick: (String) -> Unit = {},
     uiState: ChatUiState
 
@@ -51,10 +56,27 @@ fun ChatBotScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Column() {
-                        Text("Be'Mo", fontSize = 22.sp)
-                        Text("assistente virtual", fontSize = 16.sp)
+                    Row {
+                        Column() {
+                            Text(
+                                "Be'Mo",
+                                fontSize = 22.sp,
+                                modifier = Modifier.padding(top = 10.dp)
+                            )
+                            Text("assistente virtual", fontSize = 16.sp)
+                        }
+                        Button(
+                            colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.purple_chat)),
+                            onClick = { onNavigateToPayment() },
+                            modifier = Modifier
+                                .padding(start = 65.dp, top = 16.dp),
+                            shape = CircleShape
+                        ) {
+                            Text("Pagamento")
+                        }
                     }
+
+
                 },
                 navigationIcon = {
                     IconButton(onClick = { onBackToLogin() }) {
@@ -69,14 +91,14 @@ fun ChatBotScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = colorResource(R.color.purple_chat),
                     titleContentColor = Color.White
-                )
+                ),
             )
         }
     ) { innerPadding ->
         ChatBotScreenContent(
             onButtonClick = onButtonClick,
             uiState = uiState,
-            modifier = Modifier
+            modifier = modifier
                 .padding(innerPadding)
                 .fillMaxSize()
         )
@@ -96,6 +118,7 @@ fun ChatBotScreenContent(
             .fillMaxSize()
             .padding(top = 12.dp)
     ) {
+
         LazyColumn(
             modifier = Modifier
                 .weight(3F)

@@ -20,6 +20,6 @@ data class PaymentRequest(
 )
 
 data class PaymentResponse(
-    @SerializedName("costumerID")
+    @SerializedName("payment_notification")
     val response: String
 )

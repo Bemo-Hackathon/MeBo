@@ -1,5 +1,6 @@
 package com.example.bemo.ui.navigation
 
+
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.bemo.viewmodels.ChatViewModel
@@ -8,30 +9,27 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.example.bemo.ui.screens.ChatBotScreen
+import com.example.bemo.ui.screens.PaymentScreen
 
 
-const val chatBotRoute = "chatBot"
+const val paymentRoute = "payment"
 
-fun NavGraphBuilder.chatBotScreen(
-    onBackToLogin: () -> Unit,
-    onNavigateToPayment: () -> Unit
+fun NavGraphBuilder.paymentScreen(
+    onBackToChat: () -> Unit
 ) {
-    composable(chatBotRoute) {
+    composable(paymentRoute) {
         val viewModel: ChatViewModel = hiltViewModel()
         val uiState by viewModel.uiState.collectAsState()
-        ChatBotScreen(
-            onNavigateToPayment = onNavigateToPayment,
-            onBackToLogin = onBackToLogin,
+
+        PaymentScreen(
+            onBackToChat = onBackToChat,
             uiState = uiState,
-            onButtonClick = { userInput ->
-                viewModel.sendCustomerMessage(userInput = userInput ) }
         )
     }
 }
 
-fun NavHostController.navigateToChatBot(
+fun NavHostController.navigateToPaymentScreen(
     navOptions: NavOptions? = null
 ) {
-    navigate(chatBotRoute, navOptions)
+    navigate(paymentRoute, navOptions)
 }
