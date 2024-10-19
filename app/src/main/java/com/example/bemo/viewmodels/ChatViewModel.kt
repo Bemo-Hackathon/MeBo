@@ -9,6 +9,9 @@ import com.example.bemo.data.models.CustomerRequest
 import com.example.bemo.data.models.Message
 import com.example.bemo.domain.repository.MyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +23,35 @@ class ChatViewModel @Inject constructor(
 
     var chatMessages = mutableStateListOf<String>()
         private set
+
+    private val _uiState = MutableStateFlow(ChatUiState())
+    val uiState = _uiState.asStateFlow()
+
+    fun sendPaymentStatus() {
+        viewModelScope.launch {
+            val request = PaymentRequest(
+                customerID = "12345",
+                nome = "rafa",
+                paymentMethod = "credit",
+                cardExpiryDate = "16/12/2025",
+                lastPaymentDate = "16/12/2025",
+                subscriptionStatus = "inativo",
+                fraudSuspected = "nao"
+            )
+            try {
+                val response = myRepository.sendPaymentStatus(request = request)
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        paymentResponse = response.response
+                    )
+                }
+            } catch (e: Exception) {
+                chatMessages.add("Error: ${e.localizedMessage}")
+                Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
+            }
+        }
+
+    }
 
 
     fun sendCustomerMessage(userInput: String) {
