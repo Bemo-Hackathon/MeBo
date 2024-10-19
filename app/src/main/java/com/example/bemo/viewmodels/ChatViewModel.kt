@@ -23,8 +23,6 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    var chatMessages = mutableStateListOf<String>()
-        private set
 
     private val _uiState = MutableStateFlow(ChatUiState())
     var uiState = _uiState.asStateFlow()
@@ -48,7 +46,11 @@ class ChatViewModel @Inject constructor(
                     )
                 }
             } catch (e: Exception) {
-                chatMessages.add("Error: ${e.localizedMessage}")
+                _uiState.update {
+                    currentState -> currentState.copy(
+                        paymentResponse = "Error: ${e.localizedMessage}"
+                    )
+                }
                 Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
             }
         }
@@ -88,38 +90,43 @@ class ChatViewModel @Inject constructor(
                 Log.d("ChatViewModel", "Resposta recebida: ${response.response}")
 
             } catch (e: Exception) {
-                chatMessages.add("Error: ${e.localizedMessage}")
-                Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
+                _uiState.update {
+                    currentState -> currentState.copy(
+                        messages = currentState.messages.toMutableList().also {
+                            it.add("Error: ${e.localizedMessage}")
+                        }
+                    )
+                }
             }
         }
 
     }
-
-    fun sendMessage(userInput: String) {
-        chatMessages.add("User: $userInput")
-
-        viewModelScope.launch {
-            val request = ChatGPTRequest(
-                model = "gpt-3.5-turbo",
-                messages = listOf(
-                    Message(
-                        role = "system",
-                        content = "Voce e um assistente de um app financeiro, por favor so responda perguntas sobre financeiro por favor"
-                    ),
-                    Message(role = "user", content = userInput)
-                ),
-                maxCompletionTokens = 50
-            )
-
-            try {
-                val response = myRepository.sendMessage(request)
-                // Add the assistant's response to the chat
-                chatMessages.add("Be'Mo: ${response.choices.firstOrNull()?.message?.content ?: "No response"}")
-            } catch (e: Exception) {
-                chatMessages.add("Error: ${e.localizedMessage}")
-                Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
-
-            }
-        }
-    }
+//
+//    fun sendMessage(userInput: String) {
+//        chatMessages.add("User: $userInput")
+//
+//        viewModelScope.launch {
+//            val request = ChatGPTRequest(
+//                model = "gpt-3.5-turbo",
+//                messages = listOf(
+//                    Message(
+//                        role = "system",
+//                        content = "Voce e um assistente de um app financeiro, por favor so responda perguntas sobre financeiro por favor"
+//                    ),
+//                    Message(role = "user", content = userInput)
+//                ),
+//                maxCompletionTokens = 50
+//            )
+//
+//            try {
+//                val response = myRepository.sendMessage(request)
+//                // Add the assistant's response to the chat
+//                chatMessages.add("Be'Mo: ${response.choices.firstOrNull()?.message?.content ?: "No response"}")
+//            } catch (e: Exception) {
+//                chatMessages.add("Error: ${e.localizedMessage}")
+//                Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
+//
+//            }
+//        }
+//    }
 }
