@@ -21,6 +21,6 @@ data class CustomerRequest(
 }
 
 data class CustomerResponse(
-    @SerializedName("payment_notification")
+    @SerializedName("response")
     val response: String
 )

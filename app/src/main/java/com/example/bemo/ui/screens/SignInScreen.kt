@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -53,12 +54,6 @@ fun SignInScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (!uiState.error.isNullOrEmpty()) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
-                    Text("Error: ${uiState.error}")
-                }
-            }
             OutlinedTextField(
                 value = uiState.email,
                 onValueChange = uiState.onEmailChange,
@@ -74,9 +69,11 @@ fun SignInScreen(
                     Text("Senha")
                 },
                 trailingIcon = {
-                    val trailingIconModifier = Modifier.clickable {
-                        uiState.onTogglePasswordVisibility()
-                    }.size(24.dp)
+                    val trailingIconModifier = Modifier
+                        .clickable {
+                            uiState.onTogglePasswordVisibility()
+                        }
+                        .size(24.dp)
                     when (uiState.isShowPassword) {
                         true -> {
                             Icon(
@@ -99,11 +96,15 @@ fun SignInScreen(
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { onSignInClick() }) {
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.purple_chat)),
+                onClick = { onSignInClick() }) {
                 Text("Sign In")
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { onSignUpClick() }) {
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.purple_chat)),
+                onClick = { onSignUpClick() }) {
                 Text("Sign Up")
             }
         }

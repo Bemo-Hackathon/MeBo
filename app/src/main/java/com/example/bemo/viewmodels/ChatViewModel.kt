@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.bemo.data.models.ChatGPTRequest
 import com.example.bemo.data.models.CustomerRequest
 import com.example.bemo.data.models.Message
+import com.example.bemo.data.models.PaymentRequest
 import com.example.bemo.domain.repository.MyRepository
+import com.example.bemo.ui.states.ChatUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +27,7 @@ class ChatViewModel @Inject constructor(
         private set
 
     private val _uiState = MutableStateFlow(ChatUiState())
-    val uiState = _uiState.asStateFlow()
+    var uiState = _uiState.asStateFlow()
 
     fun sendPaymentStatus() {
         viewModelScope.launch {
@@ -55,7 +57,13 @@ class ChatViewModel @Inject constructor(
 
 
     fun sendCustomerMessage(userInput: String) {
-        chatMessages.add("User: $userInput")
+        _uiState.update { currentState ->
+            currentState.copy(
+                messages = currentState.messages.toMutableList().also {
+                    it.add("User: $userInput")
+                }
+            )
+        }
 
         viewModelScope.launch {
             val request = CustomerRequest(
@@ -70,7 +78,15 @@ class ChatViewModel @Inject constructor(
 
             try {
                 val response = myRepository.sendCustomerMessage(request = request)
-                chatMessages.add("Be'Mo: ${response.response}")
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        messages = currentState.messages.toMutableList().also {
+                            it.add("BeMo: ${response.response}")
+                        }
+                    )
+                }
+                Log.d("ChatViewModel", "Resposta recebida: ${response.response}")
+
             } catch (e: Exception) {
                 chatMessages.add("Error: ${e.localizedMessage}")
                 Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")

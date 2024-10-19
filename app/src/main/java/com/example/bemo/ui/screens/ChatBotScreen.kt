@@ -35,16 +35,18 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.bemo.viewmodels.ChatViewModel
 import com.example.bemo.R
+import com.example.bemo.ui.states.ChatUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatBotScreen(
     modifier: Modifier = Modifier,
-    onBackToLogin: () -> Unit
-)  {
+    onBackToLogin: () -> Unit,
+    onButtonClick: (String) -> Unit = {},
+    uiState: ChatUiState
+
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -55,7 +57,7 @@ fun ChatBotScreen(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = {onBackToLogin()}) {
+                    IconButton(onClick = { onBackToLogin() }) {
                         Icon(
                             modifier = Modifier.size(18.dp),
                             painter = painterResource(id = R.drawable.arrow_left),
@@ -72,6 +74,8 @@ fun ChatBotScreen(
         }
     ) { innerPadding ->
         ChatBotScreenContent(
+            onButtonClick = onButtonClick,
+            uiState = uiState,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -82,21 +86,23 @@ fun ChatBotScreen(
 @Composable
 fun ChatBotScreenContent(
     modifier: Modifier = Modifier,
-    viewModel: ChatViewModel = hiltViewModel()
+    uiState: ChatUiState,
+    onButtonClick: (String) -> Unit = {},
 ) {
-    val chatMessages = viewModel.chatMessages
     var userInput by remember { mutableStateOf("") }
 
-    Column(modifier = modifier
-        .fillMaxSize()
-        .padding(top = 12.dp)) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(top = 12.dp)
+    ) {
         LazyColumn(
             modifier = Modifier
                 .weight(3F)
                 .padding(start = 16.dp, end = 16.dp),
             reverseLayout = false,
         ) {
-            items(chatMessages) { message ->
+            items(uiState.messages) { message ->
                 MessageItem(
                     message = message
                 )
@@ -128,7 +134,8 @@ fun ChatBotScreenContent(
                     .align(alignment = Alignment.CenterVertically)
                     .clickable {
                         if (userInput.isNotBlank()) {
-                            viewModel.sendCustomerMessage(userInput)
+//                            viewModel.sendCustomerMessage(userInput)
+                            onButtonClick(userInput)
                             userInput = ""
                         }
                     }
