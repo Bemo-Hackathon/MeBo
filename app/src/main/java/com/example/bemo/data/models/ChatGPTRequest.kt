@@ -13,7 +13,7 @@ data class ChatGPTRequest(
 
 data class Message(
     @SerializedName("role")
-    val role: String, // "system", "user", or "assistant"
+    val role: String,
     @SerializedName("content")
     val content: String
 )

@@ -1,12 +1,10 @@
 package com.example.bemo.viewmodels
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bemo.data.models.ChatGPTRequest
+import com.example.bemo.authentication.FirebaseAuthRepository
 import com.example.bemo.data.models.CustomerRequest
-import com.example.bemo.data.models.Message
 import com.example.bemo.data.models.PaymentRequest
 import com.example.bemo.domain.repository.MyRepository
 import com.example.bemo.ui.states.ChatUiState
@@ -20,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val myRepository: MyRepository,
+    private val firebaseAuthRepository: FirebaseAuthRepository,
 ) : ViewModel() {
-
 
 
     private val _uiState = MutableStateFlow(ChatUiState())
@@ -31,7 +29,7 @@ class ChatViewModel @Inject constructor(
         viewModelScope.launch {
             val request = PaymentRequest(
                 customerID = "12345",
-                nome = "rafa",
+                nome = "Gabriel",
                 paymentMethod = "credit",
                 cardExpiryDate = "16/12/2025",
                 lastPaymentDate = "16/12/2025",
@@ -46,8 +44,8 @@ class ChatViewModel @Inject constructor(
                     )
                 }
             } catch (e: Exception) {
-                _uiState.update {
-                    currentState -> currentState.copy(
+                _uiState.update { currentState ->
+                    currentState.copy(
                         paymentResponse = "Error: ${e.localizedMessage}"
                     )
                 }
@@ -90,8 +88,8 @@ class ChatViewModel @Inject constructor(
                 Log.d("ChatViewModel", "Resposta recebida: ${response.response}")
 
             } catch (e: Exception) {
-                _uiState.update {
-                    currentState -> currentState.copy(
+                _uiState.update { currentState ->
+                    currentState.copy(
                         messages = currentState.messages.toMutableList().also {
                             it.add("Error: ${e.localizedMessage}")
                         }
@@ -99,8 +97,12 @@ class ChatViewModel @Inject constructor(
                 }
             }
         }
-
     }
+
+    fun signOut() {
+        firebaseAuthRepository.signOut()
+    }
+}
 //
 //    fun sendMessage(userInput: String) {
 //        chatMessages.add("User: $userInput")
@@ -129,4 +131,3 @@ class ChatViewModel @Inject constructor(
 //            }
 //        }
 //    }
-}

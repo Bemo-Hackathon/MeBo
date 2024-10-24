@@ -5,6 +5,8 @@ import com.example.bemo.data.models.ChatGPTRequest
 import com.example.bemo.data.models.ChatGPTResponse
 import com.example.bemo.data.models.CustomerRequest
 import com.example.bemo.data.models.CustomerResponse
+import com.example.bemo.data.models.OfferRequest
+import com.example.bemo.data.models.OfferResponse
 import com.example.bemo.data.models.PaymentRequest
 import com.example.bemo.data.models.PaymentResponse
 import com.example.bemo.data.remote.CustomerApi
@@ -27,5 +29,9 @@ class MyRepositoryImpl @Inject constructor(
 
     override suspend fun sendPaymentStatus(request: PaymentRequest): PaymentResponse {
         return customerApi.sendPaymentStatus(request)
+    }
+
+    override suspend fun sendOffer(request: OfferRequest): OfferResponse {
+        TODO("Not yet implemented")
     }
 }

@@ -26,7 +26,7 @@ fun NavGraphBuilder.signInScreen(
         val isAuthenticated by viewModel.isAuthenticated.collectAsState(false)
         LaunchedEffect(isAuthenticated) {
             if (isAuthenticated) {
-                //onNavigateToHome()
+              onNavigateToChat()
             }
         }
         SignInScreen(
@@ -34,7 +34,6 @@ fun NavGraphBuilder.signInScreen(
             onSignInClick = {
                 scope.launch {
                     viewModel.signIn()
-                    onNavigateToChat()
                 }
             },
             onSignUpClick = onNavigateToSignUp

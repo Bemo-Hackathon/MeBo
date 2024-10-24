@@ -20,12 +20,17 @@ fun NavGraphBuilder.chatBotScreen(
     composable(chatBotRoute) {
         val viewModel: ChatViewModel = hiltViewModel()
         val uiState by viewModel.uiState.collectAsState()
+
         ChatBotScreen(
             onNavigateToPayment = onNavigateToPayment,
-            onBackToLogin = onBackToLogin,
+            onBackToLogin = {
+                viewModel.signOut()
+                onBackToLogin()
+            },
             uiState = uiState,
             onButtonClick = { userInput ->
-                viewModel.sendCustomerMessage(userInput = userInput ) }
+                viewModel.sendCustomerMessage(userInput = userInput)
+            }
         )
     }
 }
