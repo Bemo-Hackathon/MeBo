@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.bemo.authentication.FirebaseAuthRepository
 import com.example.bemo.ui.states.SignInUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
@@ -56,6 +57,10 @@ class SignInViewModel @Inject constructor(
             Log.e("SignInViewModel", "signIn: ", e)
             _uiState.update {
                 it.copy(error = "Erro ao logar Usuário!")
+            }
+            delay(3000)
+            _uiState.update {
+                it.copy(error = null)
             }
         }
 
