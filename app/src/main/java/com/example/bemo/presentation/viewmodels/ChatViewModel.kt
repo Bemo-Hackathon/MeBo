@@ -56,7 +56,6 @@ class ChatViewModel @Inject constructor(
 
     }
 
-
     fun sendCustomerMessage(userInput: String) {
         _uiState.update { currentState ->
             currentState.copy(
