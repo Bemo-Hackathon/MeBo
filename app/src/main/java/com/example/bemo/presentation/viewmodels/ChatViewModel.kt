@@ -133,7 +133,6 @@ class ChatViewModel @Inject constructor(
             } catch (e: Exception) {
                 chatMessages.add("Error: ${e.localizedMessage}")
                 Log.e("ChatViewModel", "Erro ao enviar mensagem: ${e.message}")
-
             }
         }
     }
