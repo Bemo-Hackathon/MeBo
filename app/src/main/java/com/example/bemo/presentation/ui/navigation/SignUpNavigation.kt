@@ -9,7 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.bemo.ui.screens.SignUpScreen
-import com.example.bemo.viewmodels.SignUpViewModel
+import com.example.bemo.presentation.viewmodels.SignUpViewModel
 import kotlinx.coroutines.launch
 
 const val signUpRoute = "signUp"

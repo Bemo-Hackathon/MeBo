@@ -8,11 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.bemo.ui.navigation.authGraph
 import com.example.bemo.ui.navigation.authGraphRoute
-import com.example.bemo.ui.navigation.navigateToChatBot
+import com.example.bemo.presentation.ui.navigation.navigateToChatBot
 import com.example.bemo.ui.navigation.navigateToPaymentScreen
 import com.example.bemo.ui.navigation.navigateToSignIn
 import com.example.bemo.ui.navigation.navigateToSignUp
-import com.example.bemo.ui.screens.PaymentScreen
 import com.example.bemo.ui.theme.BeMoTheme
 import dagger.hilt.android.AndroidEntryPoint
 

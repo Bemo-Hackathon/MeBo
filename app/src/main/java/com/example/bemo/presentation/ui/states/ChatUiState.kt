@@ -1,4 +1,4 @@
-package com.example.bemo.ui.states
+package com.example.bemo.presentation.ui.states
 
 data class ChatUiState(
     val messages: MutableList<String> = mutableListOf(),

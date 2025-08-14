@@ -1,4 +1,4 @@
-package com.example.bemo.data.repository
+package com.example.bemo.data
 
 
 import com.example.bemo.data.models.ChatGPTRequest

@@ -16,8 +16,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bemo.R
-import com.example.bemo.ui.states.ChatUiState
-import com.example.bemo.viewmodels.ChatViewModel
+import com.example.bemo.presentation.ui.states.ChatUiState
+import com.example.bemo.presentation.viewmodels.ChatViewModel
 
 @Composable
 fun PaymentScreen(

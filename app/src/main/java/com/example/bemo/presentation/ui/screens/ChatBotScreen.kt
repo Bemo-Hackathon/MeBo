@@ -3,7 +3,6 @@ package com.example.bemo.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,7 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bemo.R
-import com.example.bemo.ui.states.ChatUiState
+import com.example.bemo.presentation.ui.states.ChatUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

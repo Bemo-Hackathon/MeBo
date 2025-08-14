@@ -9,7 +9,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 
-class FirebaseAuthRepository @Inject constructor(
+class FirebaseAuthAPI @Inject constructor(
     private val firebaseAuth: FirebaseAuth
 ) {
 

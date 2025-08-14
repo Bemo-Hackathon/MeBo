@@ -1,6 +1,6 @@
 package com.example.bemo.di
 
-import com.example.bemo.data.repository.MyRepositoryImpl
+import com.example.bemo.data.MyRepositoryImpl
 import com.example.bemo.domain.repository.MyRepository
 import dagger.Binds
 import dagger.Module

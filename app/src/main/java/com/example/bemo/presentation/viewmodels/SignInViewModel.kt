@@ -1,8 +1,8 @@
-package com.example.bemo.viewmodels
+package com.example.bemo.presentation.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.bemo.authentication.FirebaseAuthRepository
+import com.example.bemo.authentication.FirebaseAuthAPI
 import com.example.bemo.ui.states.SignInUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val firebaseAuthRepository: FirebaseAuthRepository
+    private val firebaseAuthRepository: FirebaseAuthAPI
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SignInUiState())

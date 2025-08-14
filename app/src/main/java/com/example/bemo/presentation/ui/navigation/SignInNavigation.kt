@@ -10,7 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.example.bemo.ui.screens.SignInScreen
-import com.example.bemo.viewmodels.SignInViewModel
+import com.example.bemo.presentation.viewmodels.SignInViewModel
 import kotlinx.coroutines.launch
 
 const val signInRoute = "signIn"

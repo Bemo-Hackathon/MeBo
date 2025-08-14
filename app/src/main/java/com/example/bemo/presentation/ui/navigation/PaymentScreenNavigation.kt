@@ -3,7 +3,7 @@ package com.example.bemo.ui.navigation
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.example.bemo.viewmodels.ChatViewModel
+import com.example.bemo.presentation.viewmodels.ChatViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController

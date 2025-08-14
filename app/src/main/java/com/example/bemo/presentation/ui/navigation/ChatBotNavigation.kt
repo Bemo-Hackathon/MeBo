@@ -1,8 +1,8 @@
-package com.example.bemo.ui.navigation
+package com.example.bemo.presentation.ui.navigation
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.example.bemo.viewmodels.ChatViewModel
+import com.example.bemo.presentation.viewmodels.ChatViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -29,7 +29,7 @@ fun NavGraphBuilder.chatBotScreen(
             },
             uiState = uiState,
             onButtonClick = { userInput ->
-                viewModel.sendCustomerMessage(userInput = userInput)
+                viewModel.sendMessage(userInput = userInput)
             }
         )
     }
